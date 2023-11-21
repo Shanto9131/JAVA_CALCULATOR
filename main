@@ -1,0 +1,9 @@
+package fake_calculator;
+
+public class main {
+
+	public static void main(String[] args) {
+		new fake_frame();
+	}
+
+}
