@@ -1,0 +1,767 @@
+package fake_calculator;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Arrays;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import calculator.warning;
+
+
+public class fake_frame extends JFrame implements ActionListener {
+	
+	JPanel p1,p2;
+	
+	JTextField tx1,tx2;
+	
+	JButton a1,a2,a3,a4,a5,a6,a7,a8,a9,a0;
+	JButton clear,dot,back,plus,minus,mul,div,equal;
+	JButton bx,xy,mod,root,x3,x2;
+	
+	double num1,num2=0,num3,res;
+	
+	boolean check = false,checkeq=false;
+	
+	boolean last_plus = false;
+	boolean f_minus = false;
+	boolean last_mul = false;
+	boolean last_divi = false;
+	
+	boolean eq=false;
+	
+	double [] arr=new double[15];
+	char[] arr1 = new char[15];
+	
+	int i=0,j=0;
+	
+	int x1,y1,res1,cnt=0;
+	
+	String oper,ans;
+	
+	
+	public fake_frame() {
+		setSize(400,520);
+		setDefaultCloseOperation(3);
+		setResizable(true);
+		setLocationRelativeTo(null);
+		setLayout(null);
+		setTitle("Calculator");
+		
+		
+		Font font = new Font("Times New Roman",Font.BOLD,30);
+		
+		
+		p1 = new JPanel();
+		p1.setBounds(2, 2,380,100);
+		p1.setBackground(Color.BLACK);
+		p1.setLayout(null);
+		add(p1);
+		
+		p2 = new JPanel();
+		p2.setBackground(Color.DARK_GRAY);
+		p2.setLayout(new GridLayout(6,4, 0, 0));
+		p2.setBounds(2, 101,380,377);
+		add(p2);
+		
+		tx1 = new JTextField();
+		tx1.setFont(new Font("Times New Roman", Font.BOLD, 30));
+		tx1.setBounds(4, 4,372,90);
+		tx1.setBackground(Color.white);
+		p1.add(tx1);
+		
+		
+		bx=new JButton("1/x");
+		bx.setFont(font);
+		bx.setFocusable(false);
+		bx.setBackground(Color.pink);
+		bx.setForeground(Color.WHITE);
+		p2.add(bx);
+		
+		root = new JButton("√");
+		root.setFont(font);
+		root.setFocusable(false);
+		root.setBackground(Color.pink);
+		root.setForeground(Color.WHITE);
+		p2.add(root);
+		
+		mod = new JButton("mod");
+		mod.setFont(font);
+		mod.setFocusable(false);
+		mod.setBackground(Color.pink);
+		mod.setForeground(Color.WHITE);
+		p2.add(mod);
+		
+		
+		back = new JButton("n!");
+		back.setFont(font);
+		back.setFocusable(false);
+		back.setBackground(Color.black);
+		back.setForeground(Color.WHITE);
+		p2.add(back);
+		
+		
+		x2 = new JButton("x²");
+		x2.setFont(font);
+		x2.setFocusable(false);
+		x2.setBackground(Color.pink);
+		x2.setForeground(Color.WHITE);
+		p2.add(x2);
+		
+		x3 = new JButton("x^3");
+		x3.setFont(font);
+		x3.setFocusable(false);
+		x3.setBackground(Color.pink);
+		x3.setForeground(Color.WHITE);
+		p2.add(x3);
+		
+		
+		xy = new JButton("x^y");
+		xy.setFont(font);
+		xy.setFocusable(false);
+		xy.setBackground(Color.pink);
+		xy.setForeground(Color.WHITE);
+		p2.add(xy);
+	
+		
+		plus = new JButton("+");
+		plus.setFont(font);
+		plus.setFocusable(false);
+		plus.setBackground(Color.black);
+		plus.setForeground(Color.WHITE);
+		p2.add(plus);
+		
+		
+		
+		a7 = new JButton("7");
+		a7.setFocusable(false);
+		a7.setBackground(Color.GRAY);
+		a7.setForeground(Color.WHITE);
+		a7.setFont(font);
+		p2.add(a7);
+		
+		a8 = new JButton("8");
+		a8.setFont(font);
+		a8.setFocusable(false);
+		a8.setBackground(Color.GRAY);
+		a8.setForeground(Color.WHITE);
+		p2.add(a8);
+		
+		a9 = new JButton("9");
+		a9.setFont(font);
+		a9.setFocusable(false);
+		a9.setBackground(Color.GRAY);
+		a9.setForeground(Color.WHITE);
+		p2.add(a9);
+		
+		minus = new JButton("-");
+		minus.setFont(font);
+		minus.setFocusable(false);
+		minus.setBackground(Color.black);
+		minus.setForeground(Color.WHITE);
+		p2.add(minus);
+		
+		a4 = new JButton("4");
+		a4.setFont(font);
+		a4.setFocusable(false);
+		a4.setBackground(Color.GRAY);
+		a4.setForeground(Color.WHITE);
+		p2.add(a4);
+		
+		a5 = new JButton("5");
+		a5.setFont(font);
+		a5.setFocusable(false);
+		a5.setBackground(Color.GRAY);
+		a5.setForeground(Color.WHITE);
+		a5.setFocusable(false);
+		p2.add(a5);
+		
+		a6 = new JButton("6");
+		a6.setFont(font);
+		a6.setFocusable(false);
+		a6.setBackground(Color.GRAY);
+		a6.setForeground(Color.WHITE);
+		p2.add(a6);
+
+		mul = new JButton("×");
+		mul.setFont(font);
+		mul.setFocusable(false);
+		mul.setBackground(Color.black);
+		mul.setForeground(Color.WHITE);
+		p2.add(mul);
+		
+		a1 = new JButton("1");
+		a1.setFont(font);
+		a1.setFocusable(false);
+		a1.setBackground(Color.GRAY);
+		a1.setForeground(Color.WHITE);
+		p2.add(a1);
+		
+		a2 = new JButton("2");
+		a2.setFont(font);
+		a2.setFocusable(false);
+		a2.setBackground(Color.GRAY);
+		a2.setForeground(Color.WHITE);
+		p2.add(a2);
+		
+		a3 = new JButton("3");
+		a3.setFont(font);
+		a3.setFocusable(false);
+		a3.setBackground(Color.GRAY);
+		a3.setForeground(Color.WHITE);
+		p2.add(a3);
+		
+		
+		div = new JButton("÷");
+		div.setFont(font);
+		div.setFocusable(false);
+		div.setBackground(Color.black);
+		div.setForeground(Color.WHITE);
+		p2.add(div);
+		
+		dot = new JButton(".");
+		dot.setFont(font);
+		dot.setFocusable(false);
+		dot.setBackground(Color.black);
+		dot.setForeground(Color.WHITE);
+		p2.add(dot);
+		
+		a0 = new JButton("0");
+		a0.setFocusable(false);
+		a0.setFont(font);
+		a0.setBackground(Color.GRAY);
+		a0.setForeground(Color.WHITE);
+		p2.add(a0);
+		
+		clear = new JButton("C");
+		clear.setFocusable(false);
+		clear.setFont(font);
+		clear.setBackground(Color.black);
+		clear.setForeground(Color.WHITE);
+		p2.add(clear);
+		
+		
+		equal = new JButton("=");
+		equal.setFont(font);
+		equal.setFocusable(false);
+		equal.setBackground(Color.black);
+		equal.setForeground(Color.WHITE);
+		p2.add(equal);
+		
+		
+		a1.addActionListener(this);
+		a2.addActionListener(this);
+		a3.addActionListener(this);
+		a4.addActionListener(this);
+		a5.addActionListener(this);
+		a6.addActionListener(this);
+		a7.addActionListener(this);
+		a8.addActionListener(this);
+		a9.addActionListener(this);
+		a0.addActionListener(this);
+		
+		
+		
+		clear.addActionListener(this);
+		dot.addActionListener(this);
+		back.addActionListener(this);
+		plus.addActionListener(this);
+		minus.addActionListener(this);
+		mul.addActionListener(this);
+		div.addActionListener(this);
+		equal.addActionListener(this);
+		
+		
+		
+		bx.addActionListener(this);
+		xy.addActionListener(this);
+		mod.addActionListener(this);
+		root.addActionListener(this);
+		x3.addActionListener(this);
+		x2.addActionListener(this);
+		
+		
+		setVisible(true);
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		
+		String s = tx1.getText();
+		
+		
+		if(e.getSource()==clear)
+		{
+			s="";
+			num3=0;
+			tx1.setText("");
+			eq=false;
+			for(int l=0;l<arr.length;l++)
+			{
+				arr[l]=0;
+			}
+			for(int l=0;l<arr1.length;l++)
+			{
+				arr[l]=0;
+			}
+			i=0;
+			j=0;
+		}
+		
+		if(e.getSource()==a1)
+		{
+			if(check == true ) 
+			{
+				tx1.setText("");
+				check=false;
+				s="";
+			}
+			if(s.startsWith("0"))
+			{
+				tx1.setText("1");
+			}
+			
+			else
+			{
+				tx1.setText(s+"1");
+			}
+		}
+		
+		if(e.getSource()==a2)
+		{
+			if(check == true ) 
+			{
+				tx1.setText("");
+				check=false;
+				s="";
+			}
+			if(s.startsWith("0"))
+			{
+				tx1.setText("2");
+			}
+			else 
+			{
+				tx1.setText(s+"2");
+			}
+		}
+		
+		if(e.getSource()==a3)
+		{
+			if(check == true ) 
+			{
+				tx1.setText("");
+				check=false;
+				s="";
+			}
+			if(s.startsWith("0"))
+			{
+				tx1.setText("3");
+			}
+			
+			else 
+			{
+				tx1.setText(s+"3");
+			}
+		}
+		
+		if(e.getSource()==a4)
+		{
+			if(check == true ) 
+			{
+				tx1.setText("");
+				check=false;
+				s="";
+			}
+			if(s.startsWith("0"))
+			{
+				tx1.setText("4");
+			}
+			else 
+			{
+				tx1.setText(s+"4");
+			}
+		}
+		
+		if(e.getSource()==a5)
+		{
+			if(check == true ) 
+			{
+				tx1.setText("");
+				check=false;
+				s="";
+			}
+			if(s.startsWith("0"))
+			{
+				tx1.setText("5");
+			}
+			else 
+			{
+				tx1.setText(s+"5");
+			}
+		}
+		
+		if(e.getSource()==a6)
+		{
+			if(check == true ) 
+			{
+				tx1.setText("");
+				check=false;
+				s="";
+			}
+			
+			if(s.startsWith("0"))
+			{
+				tx1.setText("6");
+			}
+			else 
+			{
+				tx1.setText(s+"6");
+			}
+		}
+		
+		if(e.getSource()==a7)
+		{
+			if(check == true ) 
+			{
+				tx1.setText("");
+				check=false;
+				s="";
+			}
+			if(s.startsWith("0"))
+			{
+				tx1.setText("7");
+			}
+			else 
+			{
+				tx1.setText(s+"7");
+			}
+		}
+		
+		if(e.getSource()==a8)
+		{
+			if(check == true ) 
+			{
+				tx1.setText("");
+				check=false;
+				s="";
+			}
+			if(s.startsWith("0"))
+			{
+				tx1.setText("8");
+			}
+			else 
+			{
+				tx1.setText(s+"8");
+			}
+		}
+		
+		if(e.getSource()==a9)
+		{
+			if(check == true ) 
+			{
+				tx1.setText("");
+				check=false;
+				s="";
+			}
+			if(s.startsWith("0"))
+			{
+				tx1.setText("9");
+			}
+			else 
+			{
+				tx1.setText(s+"9");
+			}
+		}
+		
+		if(e.getSource()==a0)
+		{
+			if(check == true ) 
+			{
+				tx1.setText("");
+				check=false;
+				s="";
+			}
+			if(s.startsWith("0"))
+			{
+				tx1.setText("");
+			}
+			else 
+			{
+				tx1.setText(s+"0");
+			}
+		}
+		
+		if(e.getSource()==dot)
+		{
+			tx1.setText(s+".");
+			if(check == true ) 
+			{
+				tx1.setText("");
+				check=false;
+				s="";
+			}
+		}
+		if(e.getSource()==plus) {
+			
+			check = true;
+			if(eq==true) {
+				arr[0]=num3;
+			}
+			arr1[j]='+';
+			j++;
+			num1 = Double.parseDouble(s);
+			arr[i] = num1;
+			i++;
+			tx1.setText("");
+			s="";
+		}
+		if(e.getSource()==minus) {
+			check = true;
+			if(eq==true) {
+				arr[0]=num3;
+			}
+			arr1[j]='-';
+			j++;
+			num1 = Double.parseDouble(s);
+			arr[i] = num1;
+			i++;
+			tx1.setText("");
+			s="";
+		}
+		if(e.getSource()==mul) {
+			check = true;
+			if(eq==true) {
+				arr[0]=num3;
+			}
+			arr1[j]='*';
+			j++;
+			num1 = Double.parseDouble(s);
+			arr[i] = num1;
+			i++;
+			tx1.setText("");
+			s="";
+		}
+		if(e.getSource()==div) {
+			check = true;
+			if(eq==true) {
+				arr[0]=num3;
+			}
+			arr1[j]='/';
+			j++;
+			num1 = Double.parseDouble(s);
+			arr[i] = num1;
+			i++;
+			tx1.setText("");
+			s="";
+		}
+		if(e.getSource()==mod) {
+			check = true;
+			if(eq==true) {
+				arr[0]=num3;
+			}
+			arr1[j]='%';
+			j++;
+			num1 = Double.parseDouble(s);
+			arr[i] = num1;
+			i++;
+			tx1.setText("");
+			s="";
+		}
+		if(e.getSource()==back)
+		{
+			check = true;
+			if(num3!=0.0) {
+				num1 = num3;
+				res=1;
+				for(Double l = num1;l>=1;l--)
+				{
+					res=res*l;
+				}
+				ans=String.valueOf(res);
+				tx1.setText(ans);
+			}
+			else {
+				num1 = Double.parseDouble(tx1.getText());
+				res=1;
+				for(Double l = num1;l>=1;l--)
+				{
+					res=res*l;
+				}
+				ans=String.valueOf(res);
+				tx1.setText(ans);
+			}
+		}
+		if(e.getSource()==bx)
+		{
+			
+			check = true;
+			if(num3!=0) {
+				Double d=num3;
+				int x = d.intValue();
+				res = 1.0/x;
+				ans = String.valueOf(res);
+				tx1.setText(ans);
+			}
+			else {
+				x1 = Integer.parseInt(s);
+				res = 1.0/x1;
+				ans = String.valueOf(res);
+				tx1.setText(ans);
+			}
+		}
+		
+		if(e.getSource() == root)
+		{
+			check = true;
+			if(num3!=0) {
+				Double d=num3;
+				int x = d.intValue();
+				res = Math.sqrt(x);
+				ans = String.valueOf(res);
+				tx1.setText(ans);
+			}
+			else {
+				x1 = Integer.parseInt(s);
+				res = Math.sqrt(x1);
+				ans = String.valueOf(res);
+				tx1.setText(ans);
+			}
+		}
+		if(e.getSource()==x2) {
+			check = true;
+			if(num3!=0) {
+				Double d=num3;
+				int x = d.intValue();
+				res=x*x;
+				ans = String.valueOf(res);
+				tx1.setText(ans);
+			}
+			else {
+				x1 = Integer.parseInt(s);
+				res=x1*x1;
+				ans = String.valueOf(res);
+				tx1.setText(ans);
+			}
+		}
+		if(e.getSource()==x3) {
+			
+			check = true;
+			if(num3!=0) {
+				Double d=num3;
+				int x1 = d.intValue();
+				res=x1*x1*x1;
+				ans = String.valueOf(res);
+				tx1.setText(ans);
+			}
+			else {
+				x1 = Integer.parseInt(s);
+				res=x1*x1*x1;
+				ans = String.valueOf(res);
+				tx1.setText(ans);
+			}
+		}
+		if(e.getSource()==xy) {
+			if(num3!=0) {
+				Double d=num3;
+				 x1 = d.intValue();
+				tx1.setText("");
+				oper = "pow";
+			}
+			else {
+				x1 = Integer.parseInt(s);
+				tx1.setText("");
+				oper = "pow";
+			}
+		}
+		
+		else if(e.getSource()==equal) {
+			
+			eq=true;
+			check = true;
+			if(oper == "pow")
+			{
+				res1 = x1;
+				
+				y1 = Integer.parseInt(tx1.getText());
+				
+				for(int i=1;i<y1;i++) 
+				{
+					res1 = (res1*x1);
+				}
+				
+				ans = String.valueOf(res1);
+				tx1.setText(ans);
+			}
+			else 
+			{
+				
+				num2 = Double.parseDouble(s);
+				arr[i]=num2;
+				arr1[j]='=';
+				for(int k=0;k<arr1.length;k++)
+				{
+					if(arr1[k]=='=')
+					{
+						res=arr[k];
+						ans=String.valueOf(res);
+						tx1.setText(ans);
+						s="";
+						checkeq = true;
+						break;
+					}
+					if(arr1[k]=='+')
+					{
+						res=arr[k]+arr[k+1];
+						arr[k+1]=res;
+						System.out.println(arr[k+1]+" "+k);
+					}
+					else if(arr1[k]=='-')
+					{
+						res=arr[k]-arr[k+1];
+						arr[k+1]=res;
+						System.out.println(arr[k+1]+" "+k);
+					}
+					else if(arr1[k]=='*')
+					{
+						res=arr[k]*arr[k+1];
+						arr[k+1]=res;
+						System.out.println(arr[k+1]+" "+k);
+					}
+					else if(arr1[k]=='/')
+					{
+						if(arr[k]==0)
+						{
+							tx1.setText("Infinity");
+						}
+						else {
+							res=arr[k]/arr[k+1];
+							arr[k+1]=res;
+							System.out.println(arr[k+1]+" "+k);
+						}
+					}
+					else if(arr1[k]=='%')
+					{
+						res=arr[k]%arr[k+1];
+						arr[k+1]=res;
+						System.out.println(arr[k+1]+" "+k);
+					}
+				
+				}
+				i=0;
+				j=0;
+			
+			}
+			num3=res;
+		}
+		
+	}
+}
